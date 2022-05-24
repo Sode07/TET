@@ -7,15 +7,16 @@ TagManager:
   - Tile
   - Base
   - Unit
+  - Building
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - RadioTower
   - Water
   - UI
-  - 
-  - 
+  - Engineer
+  - Building
   - 
   - 
   - 
