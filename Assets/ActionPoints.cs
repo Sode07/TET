@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class ActionPoints : MonoBehaviour
 {
     public float actionPoints = 1;
     public float MaxActionPoints = 1;
 
-    public GameObject Melee;
-    public GameObject Ranged;
-    public GameObject Engineer;
-    public GameObject RadioTower;
+    public bool ColourIsGreen;
 
     public GameObject Text1;
     public GameObject Text2;
@@ -53,120 +51,281 @@ public class ActionPoints : MonoBehaviour
             US.isWhiteTurn = true;
         }
     }
-
+    
     public void SummonMelee()
     {
-        if (actionPoints >= 1)
+        if (ColourIsGreen) {
+            Debug.Log("AAAAAA");
+            if (actionPoints >= 1)
+            {
+                PhotonNetwork.Instantiate("Melee", spawnPos.position, spawnPos.rotation);
+                actionPoints -= 1;
+            }
+        }
+        else
         {
-            Instantiate(Melee, spawnPos.position, spawnPos.rotation);
-            actionPoints -= 1;
+            Debug.Log("AAAAAA");
+            if (actionPoints >= 1)
+            {
+                PhotonNetwork.Instantiate("Melee Green", spawnPos.position, spawnPos.rotation);
+                actionPoints -= 1;
+            }
         }
     }
     public void SummonRanged()
     {
-        if (actionPoints >= 1)
+        if (ColourIsGreen)
         {
-            Instantiate(Ranged, spawnPos.position, spawnPos.rotation);
-            actionPoints -= 1;
+            if (actionPoints >= 1)
+            {
+                PhotonNetwork.Instantiate("Ranged", spawnPos.position, spawnPos.rotation);
+                actionPoints -= 1;
+            }
+        }
+        else
+        {
+            if (actionPoints >= 1)
+            {
+                PhotonNetwork.Instantiate("Ranged Green", spawnPos.position, spawnPos.rotation);
+                actionPoints -= 1;
+            }
         }
     }
     public void SummonEngineer()
     {
-        if (actionPoints >= 1)
+        if (ColourIsGreen)
         {
-            Instantiate(Engineer, spawnPos.position, spawnPos.rotation);
-            actionPoints -= 1;
+            if (actionPoints >= 1)
+            {
+                PhotonNetwork.Instantiate("Engineer", spawnPos.position, spawnPos.rotation);
+                actionPoints -= 1;
+            }
+        }
+        else
+        {
+            if (actionPoints >= 1)
+            {
+                PhotonNetwork.Instantiate("Engineer Green", spawnPos.position, spawnPos.rotation);
+                actionPoints -= 1;
+            }
         }
     }
     public void BuildRadioTower1()
     {
-        if (actionPoints == MaxActionPoints)
+        if (ColourIsGreen)
         {
-            x = Instantiate(RadioTower, BuildPos1.position, BuildPos1.rotation);
-            actionPoints -= MaxActionPoints;
-            MaxActionPoints += 1;
-            Destroy(BuildPos1.gameObject);
-            Destroy(Text1);
+            if (actionPoints == MaxActionPoints)
+            {
+                x = PhotonNetwork.Instantiate("RadioTower", BuildPos1.position, BuildPos1.rotation);
+                actionPoints -= MaxActionPoints;
+                MaxActionPoints += 1;
+                Destroy(BuildPos1.gameObject);
+                Destroy(Text1);
+            }
+        }
+        else
+        {
+            if (actionPoints == MaxActionPoints)
+            {
+                x = PhotonNetwork.Instantiate("RadioTower Green", BuildPos1.position, BuildPos1.rotation);
+                actionPoints -= MaxActionPoints;
+                MaxActionPoints += 1;
+                Destroy(BuildPos1.gameObject);
+                Destroy(Text1);
+            }
         }
     }
     public void BuildRadioTower2()
     {
-        if (actionPoints == MaxActionPoints)
+        if (ColourIsGreen)
         {
-            x = Instantiate(RadioTower, BuildPos2.position, BuildPos2.rotation);
-            actionPoints -= MaxActionPoints;
-            MaxActionPoints += 1;
-            Destroy(Text2);
+            if (actionPoints == MaxActionPoints)
+            {
+                x = PhotonNetwork.Instantiate("RadioTower", BuildPos2.position, BuildPos2.rotation);
+                actionPoints -= MaxActionPoints;
+                MaxActionPoints += 1;
+                Destroy(Text2);
+            }
+        }
+        else
+        {
+            if (actionPoints == MaxActionPoints)
+            {
+                x = PhotonNetwork.Instantiate("RadioTower Green", BuildPos2.position, BuildPos2.rotation);
+                actionPoints -= MaxActionPoints;
+                MaxActionPoints += 1;
+                Destroy(BuildPos2.gameObject);
+                Destroy(Text2);
+            }
         }
     }
     public void BuildRadioTower3()
     {
-        if (actionPoints == MaxActionPoints)
+        if (ColourIsGreen)
         {
-            x = Instantiate(RadioTower, BuildPos3.position, BuildPos3.rotation);
-            actionPoints -= MaxActionPoints;
-            MaxActionPoints += 1;
-            Destroy(Text3);
+            if (actionPoints == MaxActionPoints)
+            {
+                x = PhotonNetwork.Instantiate("RadioTower", BuildPos3.position, BuildPos3.rotation);
+                actionPoints -= MaxActionPoints;
+                MaxActionPoints += 1;
+                Destroy(Text3);
+            }
+        }
+        else
+        {
+            if (actionPoints == MaxActionPoints)
+            {
+                x = PhotonNetwork.Instantiate("RadioTower Green", BuildPos3.position, BuildPos3.rotation);
+                actionPoints -= MaxActionPoints;
+                MaxActionPoints += 1;
+                Destroy(BuildPos3.gameObject);
+                Destroy(Text3);
+            }
         }
     }
     public void BuildRadioTower4()
     {
-        if (actionPoints == MaxActionPoints)
+        if (ColourIsGreen)
         {
-            x = Instantiate(RadioTower, BuildPos4.position, BuildPos4.rotation);
-            actionPoints -= MaxActionPoints;
-            MaxActionPoints += 1;
-            Destroy(Text4);
+            if (actionPoints == MaxActionPoints)
+            {
+                x = PhotonNetwork.Instantiate("RadioTower", BuildPos4.position, BuildPos4.rotation);
+                actionPoints -= MaxActionPoints;
+                MaxActionPoints += 1;
+                Destroy(Text4);
+            }
+        }
+        else
+        {
+            if (actionPoints == MaxActionPoints)
+            {
+                x = PhotonNetwork.Instantiate("RadioTower Green", BuildPos4.position, BuildPos4.rotation);
+                actionPoints -= MaxActionPoints;
+                MaxActionPoints += 1;
+                Destroy(BuildPos1.gameObject);
+                Destroy(Text4);
+            }
         }
     }
     public void BuildRadioTower5()
     {
-        if (actionPoints == MaxActionPoints)
+        if (ColourIsGreen)
         {
-            x = Instantiate(RadioTower, BuildPos5.position, BuildPos5.rotation);
-            actionPoints -= MaxActionPoints;
-            MaxActionPoints += 1;
-            Destroy(Text5);
+            if (actionPoints == MaxActionPoints)
+            {
+                x = PhotonNetwork.Instantiate("RadioTower", BuildPos5.position, BuildPos5.rotation);
+                actionPoints -= MaxActionPoints;
+                MaxActionPoints += 1;
+                Destroy(Text5);
+            }
+        }
+        else
+        {
+            if (actionPoints == MaxActionPoints)
+            {
+                x = PhotonNetwork.Instantiate("RadioTower Green", BuildPos5.position, BuildPos5.rotation);
+                actionPoints -= MaxActionPoints;
+                MaxActionPoints += 1;
+                Destroy(BuildPos1.gameObject);
+                Destroy(Text5);
+            }
         }
     }    
     public void BuildRadioTower6()
     {
-        if (actionPoints == MaxActionPoints)
+        if (ColourIsGreen)
         {
-            x = Instantiate(RadioTower, BuildPos6.position, BuildPos6.rotation);
-            actionPoints -= MaxActionPoints;
-            MaxActionPoints += 1;
-            Destroy(Text6);
+            if (actionPoints == MaxActionPoints)
+            {
+                x = PhotonNetwork.Instantiate("RadioTower", BuildPos6.position, BuildPos6.rotation);
+                actionPoints -= MaxActionPoints;
+                MaxActionPoints += 1;
+                Destroy(Text6);
+            }
+        }
+        else
+        {
+            if (actionPoints == MaxActionPoints)
+            {
+                x = PhotonNetwork.Instantiate("RadioTower Green", BuildPos6.position, BuildPos6.rotation);
+                actionPoints -= MaxActionPoints;
+                MaxActionPoints += 1;
+                Destroy(BuildPos1.gameObject);
+                Destroy(Text6);
+            }
         }
     }
     public void BuildRadioTower7()
     {
-        if (actionPoints == MaxActionPoints)
+        if (ColourIsGreen)
         {
-            x = Instantiate(RadioTower, BuildPos7.position, BuildPos7.rotation);
-            actionPoints -= MaxActionPoints;
-            MaxActionPoints += 1;
-            Destroy(Text7);
+            if (actionPoints == MaxActionPoints)
+            {
+                x = PhotonNetwork.Instantiate("RadioTower", BuildPos7.position, BuildPos7.rotation);
+                actionPoints -= MaxActionPoints;
+                MaxActionPoints += 1;
+                Destroy(Text7);
+            }
+        }
+        else
+        {
+            if (actionPoints == MaxActionPoints)
+            {
+                x = PhotonNetwork.Instantiate("RadioTower Green", BuildPos7.position, BuildPos7.rotation);
+                actionPoints -= MaxActionPoints;
+                MaxActionPoints += 1;
+                Destroy(BuildPos1.gameObject);
+                Destroy(Text7);
+            }
+
         }
     }
     public void BuildRadioTower8()
     {
-        if (actionPoints == MaxActionPoints)
+        if (ColourIsGreen)
         {
-            x = Instantiate(RadioTower, BuildPos8.position, BuildPos8.rotation);
-            actionPoints -= MaxActionPoints;
-            MaxActionPoints += 1;
-            Destroy(Text8);
+            if (actionPoints == MaxActionPoints)
+            {
+                x = PhotonNetwork.Instantiate("RadioTower", BuildPos8.position, BuildPos8.rotation);
+                actionPoints -= MaxActionPoints;
+                MaxActionPoints += 1;
+                Destroy(Text8);
+            }
+        }
+        else
+        {
+            if (actionPoints == MaxActionPoints)
+            {
+                x = PhotonNetwork.Instantiate("RadioTower Green", BuildPos8.position, BuildPos8.rotation);
+                actionPoints -= MaxActionPoints;
+                MaxActionPoints += 1;
+                Destroy(BuildPos8.gameObject);
+                Destroy(Text1);
+            }
         }
     }
     public void BuildRadioTower9()
     {
-        if (actionPoints == MaxActionPoints)
+        if (ColourIsGreen)
         {
-            x = Instantiate(RadioTower, BuildPos9.position, BuildPos9.rotation);
-            actionPoints -= MaxActionPoints;
-            MaxActionPoints += 1;
-            Destroy(Text9);
+            if (actionPoints == MaxActionPoints)
+            {
+                x = PhotonNetwork.Instantiate("RadioTower", BuildPos9.position, BuildPos9.rotation);
+                actionPoints -= MaxActionPoints;
+                MaxActionPoints += 1;
+                Destroy(Text9);
+            }
+        }
+        else
+        {
+            if (actionPoints == MaxActionPoints)
+            {
+                x = PhotonNetwork.Instantiate("RadioTower Green", BuildPos9.position, BuildPos9.rotation);
+                actionPoints -= MaxActionPoints;
+                MaxActionPoints += 1;
+                Destroy(BuildPos1.gameObject);
+                Destroy(Text9);
+            }
         }
     }
 }

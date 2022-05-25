@@ -11,6 +11,6 @@ public class SceneLoader : MonoBehaviour
     }
     public void Game()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(4);
     }
 }

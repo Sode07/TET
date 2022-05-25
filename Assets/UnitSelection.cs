@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Photon.Pun;
 
 public class UnitSelection : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class UnitSelection : MonoBehaviour
 
     private Vector3 center;
 
+    public Color oldColour;
+
     private float radius;
     private float points;
     private float EHP;
@@ -22,8 +25,11 @@ public class UnitSelection : MonoBehaviour
     public ActionPoints ap;
 
     public bool SelectingBuilding;
+    private bool Check = false;
+    public bool EngineerSelected;
 
     public LayerMask IgnoreMe;
+    public LayerMask PlayerCheck;
 
     public bool isWhiteTurn;
 
@@ -34,6 +40,7 @@ public class UnitSelection : MonoBehaviour
 
     private void Update()
     {
+
         points = ap.actionPoints;
         if(points == 0)
         {
@@ -41,18 +48,31 @@ public class UnitSelection : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0))
         {
+            if(!Check)
+            {
+                Selection.GetComponent<Renderer>().material.color = oldColour;
+            }
+
             Debug.Log("hiiri alas");
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if(Physics.Raycast(ray, out hit, 1000))
+            if(Physics.Raycast(ray, out hit, 1000, ~PlayerCheck))
             {
                 Debug.Log("säde ulos");
                 if (hit.transform.tag == "Unit")
                 {
                     Selection = hit.transform.gameObject;
-                    if(Selection.GetComponent<Stats>().SightRange == 1)
+                    Selection.GetComponent<Renderer>().material.color = Color.red;
+                    Check = true;
+                    Debug.Log("Ei rikki");
+                    if (Selection.GetComponent<Stats>().SightRange == 1)
                     {
-                        EngineerUI.SetActive(true);
+                        Debug.Log("Beep Boop");
+                        EngineerSelected = true;
+                    }
+                    else
+                    {
+                        EngineerSelected = false;
                     }
                     Debug.Log("Yksikkö valittu");
                 }
@@ -67,6 +87,11 @@ public class UnitSelection : MonoBehaviour
                 }
             }
         }
+        if (EngineerSelected)
+        {
+            EngineerUI.SetActive(true);
+        }
+        else EngineerUI.SetActive(false);
         if (Input.GetMouseButtonDown(1))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -88,6 +113,9 @@ public class UnitSelection : MonoBehaviour
                         {
                             Selection.transform.position = hit.transform.position;
                             Debug.Log("Yksikkö liikkui");
+                            Selection.GetComponent<Renderer>().material.color = oldColour;
+                            Selection = null;
+                            EngineerSelected = false;
                             ap.actionPoints -= 1;
                         }
                     }
@@ -103,7 +131,10 @@ public class UnitSelection : MonoBehaviour
                             Debug.Log("Not Crashed!");
                             EHP = hit.transform.gameObject.GetComponent<Stats>().HP;
                             DMG = Selection.transform.gameObject.GetComponent<Stats>().AttackDmg;
+                            Debug.LogError(EHP);
+                            Debug.LogError(DMG);
                             EHP -= DMG;
+                            hit.transform.gameObject.GetComponent<Stats>().HP = EHP;
                             Debug.Log("Yksikkö Haavoittui");
                             ap.actionPoints -= 1;
                         }

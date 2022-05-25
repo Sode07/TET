@@ -8,6 +8,7 @@ TagManager:
   - Base
   - Unit
   - Building
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -17,9 +18,9 @@ TagManager:
   - UI
   - Engineer
   - Building
-  - 
-  - 
-  - 
+  - GreenEngineer
+  - White
+  - Green
   - 
   - 
   - 
