@@ -10,6 +10,7 @@ public class ActionPoints : MonoBehaviour
     public float MaxActionPoints = 1;
 
     public bool ColourIsGreen;
+    private bool GavePoints;
 
     public GameObject Text1;
     public GameObject Text2;
@@ -20,6 +21,7 @@ public class ActionPoints : MonoBehaviour
     public GameObject Text7;
     public GameObject Text8;
     public GameObject Text9;
+    public GameObject TurnTurner;
 
     public Transform spawnPos;
     public Transform BuildPos1;
@@ -41,14 +43,39 @@ public class ActionPoints : MonoBehaviour
     private void FixedUpdate()
     {
         ApTXT.text = "AP" + actionPoints.ToString();
+        if (ColourIsGreen && US.isWhiteTurn == 1)
+        {
+            TurnTurner.gameObject.SetActive(true);
+            if (!GavePoints)
+            {
+                actionPoints = MaxActionPoints;
+            }
+        }
+        if (ColourIsGreen && US.isWhiteTurn == -1)
+        {
+            TurnTurner.gameObject.SetActive(false);
+        }
+        if (!ColourIsGreen && US.isWhiteTurn == 1)
+        {
+            TurnTurner.gameObject.SetActive(false);
+        }
+        if (!ColourIsGreen && US.isWhiteTurn == -1)
+        {
+            TurnTurner.gameObject.SetActive(true);
+        }
+    }
+    [PunRPC]
+    public void EndTurn()
+    {
+        US.isWhiteTurn *= -1;
     }
 
-    private void Update()
+    public void BuildSchool()
     {
-        if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        if (actionPoints >= 1)
         {
-            actionPoints = MaxActionPoints;
-            US.isWhiteTurn = true;
+            PhotonNetwork.Instantiate("Melee Green", US.Selection.transform.position, US.Selection.transform.rotation);
+            actionPoints -= 1;
         }
     }
     

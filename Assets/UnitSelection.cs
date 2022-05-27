@@ -31,21 +31,17 @@ public class UnitSelection : MonoBehaviour
     public LayerMask IgnoreMe;
     public LayerMask PlayerCheck;
 
-    public bool isWhiteTurn;
+    public int isWhiteTurn;
 
     private void Awake()
     {
-        isWhiteTurn = true;
+        isWhiteTurn = 1;
     }
 
     private void Update()
     {
 
         points = ap.actionPoints;
-        if(points == 0)
-        {
-            isWhiteTurn = false;
-        }
         if (Input.GetMouseButtonDown(0))
         {
             if(!Check)
@@ -112,6 +108,7 @@ public class UnitSelection : MonoBehaviour
                         if (hitColliders.Contains(hit.transform.gameObject.GetComponent<MeshCollider>()))
                         {
                             Selection.transform.position = hit.transform.position;
+                            Selection.transform.Translate(0, 0.7f, 0);
                             Debug.Log("Yksikkö liikkui");
                             Selection.GetComponent<Renderer>().material.color = oldColour;
                             Selection = null;
@@ -136,6 +133,26 @@ public class UnitSelection : MonoBehaviour
                             EHP -= DMG;
                             hit.transform.gameObject.GetComponent<Stats>().HP = EHP;
                             Debug.Log("Yksikkö Haavoittui");
+                            ap.actionPoints -= 1;
+                        }
+                    }
+                }
+                if(hit.transform.tag == "School")
+                {
+                    if (points >= 1)
+                    {
+                        Collider[] hitColliders = Physics.OverlapSphere(center, stats.MoveRange * 2.3f);
+                        if (hitColliders.Contains(hit.transform.gameObject.GetComponent<MeshCollider>()))
+                        {
+                            Selection.transform.position = hit.transform.position;
+                            Debug.Log("Yksikkö liikkui");
+                            Selection.GetComponent<Renderer>().material.color = oldColour;
+                            Selection.GetComponent<Stats>().AttackDmg += 1;
+                            Selection.GetComponent<Stats>().HP += 1;
+                            Selection.GetComponent<Stats>().AttackRange += 1;
+                            Selection.GetComponent<Stats>().MoveRange += 1;
+                            Selection = null;
+                            EngineerSelected = false;
                             ap.actionPoints -= 1;
                         }
                     }
