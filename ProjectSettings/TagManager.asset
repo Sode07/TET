@@ -9,6 +9,7 @@ TagManager:
   - Unit
   - Building
   - Bullet
+  - School
   layers:
   - Default
   - TransparentFX
